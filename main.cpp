@@ -207,11 +207,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Vector2 Player1_Lefttop = { Player1.pos.x - Player1.radius.x,Player1.pos.y - Player1.radius.y };///プレイヤー1左上
 
-		Vector2 Player1_Righttop = { Player1.pos.x + Player1.radius.x,Player1.pos.y - Player1.radius.y };///プレイヤー1右上
+		Vector2 Player1_Righttop = { Player1.pos.x + 15,Player1.pos.y - Player1.radius.y };///プレイヤー1右上
 
-		Vector2 Player1_Leftbottom = { Player1.pos.x - Player1.radius.x,Player1.pos.y + Player1.radius.y };///プレイヤー1左下
+		Vector2 Player1_Leftbottom = { Player1.pos.x - Player1.radius.x,Player1.pos.y + 15 };///プレイヤー1左下
 
-		Vector2 Player1_Rightbottom = { Player1.pos.x + Player1.radius.x,Player1.pos.y + Player1.radius.y };///プレイヤー1右下
+		Vector2 Player1_Rightbottom = { Player1.pos.x + 15,Player1.pos.y + 15 };///プレイヤー1右下
+
+		///
+		///プレイヤー1の四隅のマップチップ
+		/// 
+
+		Vector2int Player1_Lefttopmap = { int(Player1_Lefttop.x) / 32,int(Player1_Lefttop.y) / 32 };
+
+		Vector2int Player1_Righttopmap = { int(Player1_Righttop.x) / 32,int(Player1_Righttop.y) / 32 };
+
+		Vector2int Player1_Leftbottommap = { int(Player1_Leftbottom.x) / 32,int(Player1_Leftbottom.y) / 32 };
+
+		Vector2int Player1_Rightbottommap = { int(Player1_Rightbottom.x) / 32, int(Player1_Rightbottom.y) / 32 };
 
 		///
 		///プレイヤー2の四隅の座標
@@ -224,6 +236,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Vector2 Player2_Leftbottom = { Player2.pos.x - Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2左下
 
 		Vector2 Player2_Rightbottom = { Player2.pos.x + Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2右下
+
+		///
+		///プレイヤー2の四隅のマップチップ
+		/// 
+
+		Vector2int Player2_Lefttopmap = { int(Player2_Lefttop.x) / 32,int(Player2_Lefttop.y) / 32 };
+
+		Vector2int Player2_Righttopmap = { int(Player2_Righttop.x) / 32,int(Player2_Righttop.y) / 32 };
+
+		Vector2int Player2_Leftbottommap = { int(Player2_Leftbottom.x) / 32,int(Player2_Leftbottom.y) / 32 };
+
+		Vector2int Player2_Rightbottommap = { int(Player2_Rightbottom.x) / 32, int(Player2_Rightbottom.y) / 32 };
 
 		switch (scene)
 		{
@@ -299,6 +323,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				///落下処理
 
+				
+
 				Vector2int Player1_preleftBottommap = { int(Player1_Leftbottom.x) / 32,int(Player1_Leftbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(左下)
 
 				Vector2int Player1_prerightBottommap = { int(Player1_Rightbottom.x) / 32,int(Player1_Rightbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(右下)
@@ -311,10 +337,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1 || mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
 				{
-					
+					if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1)
+					{
+						Player1.pos.y = float(Player1_preleftBottommap.y - 1) * 32 + 16;
+					}
+					else if (mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
+					{
+						Player1.pos.y = float(Player1_prerightBottommap.y + 1) * 32 + 16;
+					}
 				}
 
 				
+				
+				Novice::ScreenPrintf(100, 100, "%f", Player1.vel.y);
 
 				///
 				///移動処理ここまで↑↑↑
@@ -494,6 +529,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				}
 			}
+
+			for (int i = 0; i < 12; i++)
+			{
+				for (int j = 0; j < 52; j++)
+				{
+					if (i == Player1_Lefttopmap.y && j == Player1_Lefttopmap.x)
+					{
+						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
+					} 
+					if (i == Player1_Righttopmap.y && j == Player1_Righttopmap.x)
+					{
+						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
+					}
+					if (i == Player1_Leftbottommap.y && j == Player1_Leftbottommap.x)
+					{
+						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
+					}
+					if (i == Player1_Rightbottommap.y && j == Player1_Rightbottommap.x)
+					{
+						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
+					}
+				}
+			}
+			
 
 			QUAD(Player1_Lefttop, Player1_Righttop, Player1_Leftbottom, Player1_Rightbottom, red);
 
