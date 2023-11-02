@@ -69,7 +69,7 @@ Player Player1 =
 {
 	{100,100},
 	{0,0},
-	{0,1.0f},
+	{0,0.8f},
 	{16,16},
 	true,
 	{1.0f,1.0f},
@@ -287,9 +287,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					Player1.vel.x = 4;
 
-					Vector2int Player1_preRighttopmap = { int(Player1_Righttop.x + Player1.vel.x) / 32,int(Player1_Righttop.y) /32 };///プレイヤーの1マス右のマップチップ()
+					Vector2int Player1_preRighttopmap = { int(Player1_Righttop.x + Player1.vel.x) / 32,int(Player1_Righttop.y) /32 };///プレイヤーの1マス右のマップチップ(右上)
 
-					Vector2int Player1_preRightbottommap = { int(Player1_Rightbottom.x + Player1.vel.x) /32,int(Player1_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ()
+					Vector2int Player1_preRightbottommap = { int(Player1_Rightbottom.x + Player1.vel.x) /32,int(Player1_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
 
 					if (mapchip[Player1_preRighttopmap.y][Player1_preRighttopmap.x] == 0 && mapchip[Player1_preRightbottommap.y][Player1_preRightbottommap.x] == 0)
 					{
@@ -299,9 +299,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				///落下処理
 
-				Vector2int Player1_preleftBottommap = { int(Player1_Leftbottom.x) / 32,int(Player1_Leftbottom.y + Player1.vel.y) / 32 };
+				Vector2int Player1_preleftBottommap = { int(Player1_Leftbottom.x) / 32,int(Player1_Leftbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(左下)
 
-				Vector2int Player1_prerightBottommap = { int(Player1_Rightbottom.x) / 32,int(Player1_Rightbottom.y + Player1.vel.y) / 32 };
+				Vector2int Player1_prerightBottommap = { int(Player1_Rightbottom.x) / 32,int(Player1_Rightbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(右下)
 
 				if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 0 && mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 0)
 				{
