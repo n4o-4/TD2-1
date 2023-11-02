@@ -205,25 +205,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///プレイヤー1の四隅の座標
 		/// 
 
-		Vector2 Player1_Lefttop = { Player1.pos.x - Player1.radius.x,Player1.radius.y - Player1.radius.y };///プレイヤー1左上
+		Vector2 Player1_Lefttop = { Player1.pos.x - Player1.radius.x,Player1.pos.y - Player1.radius.y };///プレイヤー1左上
 
-		Vector2 Player1_Righttop = { Player1.pos.x + Player1.radius.x,Player1.radius.y - Player1.radius.y };///プレイヤー1右上
+		Vector2 Player1_Righttop = { Player1.pos.x + Player1.radius.x,Player1.pos.y - Player1.radius.y };///プレイヤー1右上
 
-		Vector2 Player1_Leftbottom = { Player1.pos.x - Player1.radius.x,Player1.radius.y + Player1.radius.y };///プレイヤー1左下
+		Vector2 Player1_Leftbottom = { Player1.pos.x - Player1.radius.x,Player1.pos.y + Player1.radius.y };///プレイヤー1左下
 
-		Vector2 Player1_Rightbottom = { Player1.pos.x + Player1.radius.x,Player1.radius.y + Player1.radius.y };///プレイヤー1右下
+		Vector2 Player1_Rightbottom = { Player1.pos.x + Player1.radius.x,Player1.pos.y + Player1.radius.y };///プレイヤー1右下
 
 		///
 		///プレイヤー2の四隅の座標
 		/// 
 
-		Vector2 Player2_Lefttop = { Player2.pos.x - Player2.radius.x,Player2.radius.y - Player2.radius.y };///プレイヤー2左上
+		Vector2 Player2_Lefttop = { Player2.pos.x - Player2.radius.x,Player2.pos.y - Player2.radius.y };///プレイヤー2左上
 
-		Vector2 Player2_Righttop = { Player2.pos.x + Player2.radius.x,Player2.radius.y - Player2.radius.y };///プレイヤー2右上
+		Vector2 Player2_Righttop = { Player2.pos.x + Player2.radius.x,Player2.pos.y - Player2.radius.y };///プレイヤー2右上
 
-		Vector2 Player2_Leftbottom = { Player2.pos.x - Player2.radius.x,Player2.radius.y + Player2.radius.y };///プレイヤー2左下
+		Vector2 Player2_Leftbottom = { Player2.pos.x - Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2左下
 
-		Vector2 Player2_Rightbottom = { Player2.pos.x + Player2.radius.x,Player2.radius.y + Player2.radius.y };///プレイヤー2右下
+		Vector2 Player2_Rightbottom = { Player2.pos.x + Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2右下
 
 		switch (scene)
 		{
@@ -309,6 +309,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					Player1.vel.y += Player1.acc.y;
 				}
+				else if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1 || mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
+				{
+					
+				}
+
+				
 
 				///
 				///移動処理ここまで↑↑↑
