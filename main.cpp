@@ -80,9 +80,9 @@ Player Player1 =
 
 Player Player2 =
 {
+	{200,600},
 	{0,0},
-	{0,0},
-	{0,0},
+	{0,0.8f},
 	{16,16},
 	false,
 	{1.0f,1.0f},
@@ -172,9 +172,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -266,10 +266,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		case Stage1:
 
+			//プレイヤーの変更
+
+		
+
 			///プレイヤ－1フラグ
 
 			if (Player1.flag == true)
 			{
+				if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == 0)
+				{
+					Player1.flag = false;
+					Player2.flag = true;
+				}
+
 				//-----プレイヤー１生存フラグ
 				if (Player1.isPlayerAlive == 0)
 				{
@@ -311,9 +321,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					Player1.vel.x = 4;
 
-					Vector2int Player1_preRighttopmap = { int(Player1_Righttop.x + Player1.vel.x) / 32,int(Player1_Righttop.y) /32 };///プレイヤーの1マス右のマップチップ(右上)
+					Vector2int Player1_preRighttopmap = { int(Player1_Righttop.x + Player1.vel.x) / 32,int(Player1_Righttop.y) / 32 };///プレイヤーの1マス右のマップチップ(右上)
 
-					Vector2int Player1_preRightbottommap = { int(Player1_Rightbottom.x + Player1.vel.x) /32,int(Player1_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
+					Vector2int Player1_preRightbottommap = { int(Player1_Rightbottom.x + Player1.vel.x) / 32,int(Player1_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
 
 					if (mapchip[Player1_preRighttopmap.y][Player1_preRighttopmap.x] == 0 && mapchip[Player1_preRightbottommap.y][Player1_preRightbottommap.x] == 0)
 					{
@@ -323,54 +333,61 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				///落下処理
 
-				
+				Player1.pos.y += Player1.vel.y;
 
 				Vector2int Player1_preleftBottommap = { int(Player1_Leftbottom.x) / 32,int(Player1_Leftbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(左下)
 
 				Vector2int Player1_prerightBottommap = { int(Player1_Rightbottom.x) / 32,int(Player1_Rightbottom.y + Player1.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(右下)
 
-				if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 0 && mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 0)
+				if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 0 && mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 0 &&
+					mapchip[int(Player1_Leftbottom.y + 1) / 32][int(Player1_Leftbottom.x) / 32] == 0 && mapchip[int(Player1_Rightbottom.y + 1) / 32][int(Player1_Rightbottom.x) / 32] == 0)
 				{
-					Player1.pos.y += Player1.vel.y;
-
 					Player1.vel.y += Player1.acc.y;
 				}
-				else if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1 || mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
+				else if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1 && mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
 				{
-					if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1)
-					{
-						Player1.pos.y = float(Player1_preleftBottommap.y - 1) * 32 + 16;
-					}
-					else if (mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
-					{
-						Player1.pos.y = float(Player1_prerightBottommap.y + 1) * 32 + 16;
-					}
+					Player1.pos.y = float(Player1_preleftBottommap.y - 1) * 32 + 16;
+
+					Player1.vel.y = 0;
+				}
+				else if (mapchip[Player1_preleftBottommap.y][Player1_preleftBottommap.x] == 1)
+				{
+					Player1.pos.y = float(Player1_preleftBottommap.y - 1) * 32 + 16;
+
+					Player1.vel.y = 0;
+				}
+				else if (mapchip[Player1_prerightBottommap.y][Player1_prerightBottommap.x] == 1)
+				{
+					Player1.pos.y = float(Player1_prerightBottommap.y - 1) * 32 + 16;
+
+					Player1.vel.y = 0;
 				}
 
-				
-				
-				Novice::ScreenPrintf(100, 100, "%f", Player1.vel.y);
+				if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && Player1.vel.y == 0)
+				{
+					Player1.vel.y = -15;
+				}
 
 				///
 				///移動処理ここまで↑↑↑
 				/// 
 
-
-				if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == 0)
-				{
-					Player1.flag = false;
-					Player2.flag = true;
-				}
-			}
-			else if (Player1.flag == false)
-			{
+				
 
 			}
+			
 
 			///プレイヤー2フラグ
 
-			if (Player2.flag == true)
+			 else if (Player2.flag == true)
 			{
+
+				if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == 0)
+				{
+					Player2.flag = false;
+					Player1.flag = true;
+				}
+
 				//-----プレイヤー2生存フラグ
 				if (Player2.isPlayerAlive == 0)
 				{
@@ -386,16 +403,86 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Player2.theta -= 1.0f / 128.0f * (float)M_PI;
 				}
 
-				if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == 0)
-				{
-					Player1.flag = true;
-					Player2.flag = false;
-				}
-			}
-			else if (Player2.flag == false)
-			{
+				///
+				///移動処理ここから↓↓↓
+				/// 
 
+				///左移動の処理
+
+				if (keys[DIK_A])
+				{
+					Player2.vel.x = -4;
+
+					Vector2int Player2_preLefttopmap = { int(Player2_Lefttop.x + Player2.vel.x) / 32,int(Player2_Lefttop.y) / 32 };///プレイヤーの1マス左のマップチップ(左上)
+
+					Vector2int Player2_preLeftbottommap = { int(Player2_Leftbottom.x + Player2.vel.x) / 32,int(Player2_Leftbottom.y) / 32 };///プレイヤーの1マス左のマップチップ(左下)
+
+					if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 0 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 0)
+					{
+						Player2.pos.x += Player2.vel.x;
+					}
+				}
+
+				///右移動の処理
+
+				if (keys[DIK_D])
+				{
+					Player2.vel.x = 4;
+
+					Vector2int Player2_preRighttopmap = { int(Player2_Righttop.x + Player2.vel.x) / 32,int(Player2_Righttop.y) / 32 };///プレイヤーの1マス右のマップチップ(右上)
+
+					Vector2int Player2_preRightbottommap = { int(Player2_Rightbottom.x + Player2.vel.x) / 32,int(Player2_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
+
+					if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 0 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 0)
+					{
+						Player2.pos.x += Player2.vel.x;
+					}
+				}
+
+				///落下処理
+
+				Player2.pos.y += Player2.vel.y;
+
+				Vector2int Player2_preleftBottommap = { int(Player2_Leftbottom.x) / 32,int(Player2_Leftbottom.y + Player2.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(左下)
+
+				Vector2int Player2_prerightBottommap = { int(Player2_Rightbottom.x) / 32,int(Player2_Rightbottom.y + Player2.vel.y) / 32 };///プレイヤー1の1マス下のマップチップ(右下)
+
+				if (mapchip[Player2_preleftBottommap.y][Player2_preleftBottommap.x] == 0 && mapchip[Player2_prerightBottommap.y][Player2_prerightBottommap.x] == 0 &&
+					mapchip[int(Player2_Leftbottom.y + 1) / 32][int(Player2_Leftbottom.x) / 32] == 0 && mapchip[int(Player2_Rightbottom.y + 1) / 32][int(Player2_Rightbottom.x) / 32] == 0)
+				{
+					Player2.vel.y += Player2.acc.y;
+				}
+				else if (mapchip[Player2_preleftBottommap.y][Player2_preleftBottommap.x] == 1 && mapchip[Player2_prerightBottommap.y][Player2_prerightBottommap.x] == 1)
+				{
+					Player2.pos.y = float(Player2_preleftBottommap.y - 1) * 32 + 16;
+
+					Player2.vel.y = 0;
+				}
+				else if (mapchip[Player2_preleftBottommap.y][Player2_preleftBottommap.x] == 1)
+				{
+					Player2.pos.y = float(Player2_preleftBottommap.y - 1) * 32 + 16;
+
+					Player2.vel.y = 0;
+				}
+				else if (mapchip[Player2_prerightBottommap.y][Player2_prerightBottommap.x] == 1)
+				{
+					Player2.pos.y = float(Player2_prerightBottommap.y - 1) * 32 + 16;
+
+					Player2.vel.y = 0;
+				}
+
+				if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && Player2.vel.y == 0)
+				{
+					Player2.vel.y = -15;
+				}
+				
+				///
+				///移動処理ここまで↑↑↑
+				/// 
+
+				
 			}
+			
 
 
 
@@ -512,7 +599,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					if (mapchip[i][j] == 1)
 					{
-						Novice::DrawSprite(j * 32, i *32, whiteblock, 32, 32, 0.0f, WHITE);
+						Novice::DrawSprite(j * 32, i * 32, whiteblock, 32, 32, 0.0f, WHITE);
 					}
 
 				}
@@ -524,7 +611,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					if (mapchip[i][j] == 1)
 					{
-						Novice::DrawSprite(j * 32, i *32, whiteblock,32, 32, 0.0f, WHITE);
+						Novice::DrawSprite(j * 32, i * 32, whiteblock, 32, 32, 0.0f, WHITE);
 					}
 
 				}
@@ -534,10 +621,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				for (int j = 0; j < 52; j++)
 				{
-					if (i == Player1_Lefttopmap.y && j == Player1_Lefttopmap.x)
+					if (i == Player1_Lefttopmap.y && j == Player1_Lefttopmap.x)	
 					{
 						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
-					} 
+					}
 					if (i == Player1_Righttopmap.y && j == Player1_Righttopmap.x)
 					{
 						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
@@ -552,11 +639,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
-			
+
 
 			QUAD(Player1_Lefttop, Player1_Righttop, Player1_Leftbottom, Player1_Rightbottom, red);
 
 			QUAD(Player2_Lefttop, Player2_Righttop, Player2_Leftbottom, Player2_Rightbottom, blue);
+
+			if (Player1.flag == true)
+			{
+				Novice::ScreenPrintf(100, 100, "Player1.vel.y = %f", Player1.vel.y);
+			}
+			else if (Player2.flag == true)
+			{
+				Novice::ScreenPrintf(100, 100, "Player2.vel.y = %f", Player2.vel.y);
+			}
 
 			break;
 
