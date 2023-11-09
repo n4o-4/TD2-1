@@ -136,6 +136,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int blue = Novice::LoadTexture("./Resources/images/blue1x1.png");///仮置き
 
+	int subred = Novice::LoadTexture("./Resources/images/subred1x1.png");
+
+	int changeblock = Novice::LoadTexture("./Resources/images/changescaleblock.png");
+
 	///
 	///Resource置き場ここまで↑↑↑
 	///
@@ -173,7 +177,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -226,16 +230,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Vector2int Player1_Rightbottommap = { int(Player1_Rightbottom.x) / 32, int(Player1_Rightbottom.y) / 32 };
 
 		///
+		///プレイヤー1の影
+		/// 
+
+		Vector2 SScale1 = { 0,0 };
+
+		Vector2 SPlayer1_Lefttop = { (Player1.pos.x - Player1.radius.x) - SScale1.x,(Player1.pos.y - Player1.radius.y) + 353 - SScale1.y };///プレイヤー1左上 S = Shadow
+
+		Vector2 SPlayer1_Righttop = { (Player1.pos.x + 15) + SScale1.x,(Player1.pos.y - Player1.radius.y) + 353 - SScale1.y };///プレイヤー1右上
+
+		Vector2 SPlayer1_Leftbottom = { (Player1.pos.x - Player1.radius.x) - SScale1.x,(Player1.pos.y + 15) + 353 +  SScale1.y};///プレイヤー1左下
+
+		Vector2 SPlayer1_Rightbottom = { (Player1.pos.x + 15) + SScale1.x,(Player1.pos.y + 15) + 353 + SScale1.y };///プレイヤー1右下
+
+		///
 		///プレイヤー2の四隅の座標
 		/// 
 
 		Vector2 Player2_Lefttop = { Player2.pos.x - Player2.radius.x,Player2.pos.y - Player2.radius.y };///プレイヤー2左上
 
-		Vector2 Player2_Righttop = { Player2.pos.x + Player2.radius.x,Player2.pos.y - Player2.radius.y };///プレイヤー2右上
+		Vector2 Player2_Righttop = { Player2.pos.x + 15,Player2.pos.y - Player2.radius.y };///プレイヤー2右上
 
-		Vector2 Player2_Leftbottom = { Player2.pos.x - Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2左下
+		Vector2 Player2_Leftbottom = { Player2.pos.x - Player2.radius.x,Player2.pos.y + 15 };///プレイヤー2左下
 
-		Vector2 Player2_Rightbottom = { Player2.pos.x + Player2.radius.x,Player2.pos.y + Player2.radius.y };///プレイヤー2右下
+		Vector2 Player2_Rightbottom = { Player2.pos.x + 15,Player2.pos.y + 15 };///プレイヤー2右下
 
 		///
 		///プレイヤー2の四隅のマップチップ
@@ -248,6 +266,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Vector2int Player2_Leftbottommap = { int(Player2_Leftbottom.x) / 32,int(Player2_Leftbottom.y) / 32 };
 
 		Vector2int Player2_Rightbottommap = { int(Player2_Rightbottom.x) / 32, int(Player2_Rightbottom.y) / 32 };
+
+		
+		
 
 		switch (scene)
 		{
@@ -313,6 +334,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					{
 						Player1.pos.x += Player1.vel.x;
 					}
+					if(mapchip[Player1_preLefttopmap.y][Player1_preLefttopmap.x] == 0 && mapchip[Player1_preLeftbottommap.y][Player1_preLeftbottommap.x] == 0)
 				}
 
 				///右移動の処理
@@ -602,6 +624,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						Novice::DrawSprite(j * 32, i * 32, whiteblock, 32, 32, 0.0f, WHITE);
 					}
 
+					///test
+
+					if (mapchip[i][j] == 2)
+					{
+						int scaletimer = 0;
+
+						scaletimer++;
+
+						if (scaletimer == 200)
+						{
+							scaletimer = 0;
+						}
+
+						if (scaletimer < 50)
+						{
+							Novice::drawsprite
+						}
+						else if (scaletimer < 100)
+						{
+							
+						}
+						else if (scaletimer < 150)
+						{
+							
+						}
+						else if (scaletimer < 200)
+						{
+							
+						}
+					}
+
 				}
 			}
 
@@ -617,7 +670,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			for (int i = 0; i < 12; i++)
+			/*for (int i = 0; i < 12; i++)
 			{
 				for (int j = 0; j < 52; j++)
 				{
@@ -639,19 +692,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
-
+		    */
 
 			QUAD(Player1_Lefttop, Player1_Righttop, Player1_Leftbottom, Player1_Rightbottom, red);
 
 			QUAD(Player2_Lefttop, Player2_Righttop, Player2_Leftbottom, Player2_Rightbottom, blue);
 
+			QUAD(SPlayer1_Lefttop, SPlayer1_Righttop, SPlayer1_Leftbottom, SPlayer1_Rightbottom, subred);
+
 			if (Player1.flag == true)
 			{
-				Novice::ScreenPrintf(100, 100, "Player1.vel.y = %f", Player1.vel.y);
+				Novice::ScreenPrintf(100, 100, "Player1.vel.x = %f", Player1.vel.x);
 			}
 			else if (Player2.flag == true)
 			{
-				Novice::ScreenPrintf(100, 100, "Player2.vel.y = %f", Player2.vel.y);
+				Novice::ScreenPrintf(100, 100, "Player2.vel.x = %f", Player2.vel.x);
 			}
 
 			break;
