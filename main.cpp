@@ -161,6 +161,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		GameClear,
 	};
 
+	int scaletimer = 0;
+
 	///
 	///変数初期化ここまで↑↑↑
 	///
@@ -239,7 +241,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Vector2 SPlayer1_Righttop = { (Player1.pos.x + 15) + SScale1.x,(Player1.pos.y - Player1.radius.y) + 353 - SScale1.y };///プレイヤー1右上
 
-		Vector2 SPlayer1_Leftbottom = { (Player1.pos.x - Player1.radius.x) - SScale1.x,(Player1.pos.y + 15) + 353 +  SScale1.y};///プレイヤー1左下
+		Vector2 SPlayer1_Leftbottom = { (Player1.pos.x - Player1.radius.x) - SScale1.x,(Player1.pos.y + 15) + 353 + SScale1.y };///プレイヤー1左下
 
 		Vector2 SPlayer1_Rightbottom = { (Player1.pos.x + 15) + SScale1.x,(Player1.pos.y + 15) + 353 + SScale1.y };///プレイヤー1右下
 
@@ -267,8 +269,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Vector2int Player2_Rightbottommap = { int(Player2_Rightbottom.x) / 32, int(Player2_Rightbottom.y) / 32 };
 
-		
-		
+
+
 
 		switch (scene)
 		{
@@ -289,7 +291,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//プレイヤーの変更
 
-		
+
 
 			///プレイヤ－1フラグ
 
@@ -401,14 +403,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				///移動処理ここまで↑↑↑
 				/// 
 
-				
+
 
 			}
-			
+
 
 			///プレイヤー2フラグ
 
-			 else if (Player2.flag == true)
+			else if (Player2.flag == true)
 			{
 
 				if (keys[DIK_RETURN] && preKeys[DIK_RETURN] == 0)
@@ -446,10 +448,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					Vector2int Player2_preLeftbottommap = { int(Player2_Leftbottom.x + Player2.vel.x) / 32,int(Player2_Leftbottom.y) / 32 };///プレイヤーの1マス左のマップチップ(左下)
 
-					if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 0 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 0)
+					if (SPlayer1_Lefttop.y > Player2_Rightbottom.y || SPlayer1_Leftbottom.y < Player2_Righttop.y)
 					{
-						Player2.pos.x += Player2.vel.x;
+						if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 0 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 0)
+						{
+							Player2.pos.x += Player2.vel.x;
+						}
+						else if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 2 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 2)
+						{
+							Player2.pos.x += Player2.vel.x;
+						}
 					}
+					else if (SPlayer1_Righttop.y < Player2_Leftbottom.y || SPlayer1_Rightbottom.y > Player2_Lefttop.y)
+					{
+						if (SPlayer1_Righttop.y < Player2_Leftbottom.y)
+						{
+							if (SPlayer1_Lefttop.x > Player2_Rightbottom.x || SPlayer1_Righttop.x < Player2_Leftbottom.x + Player2.vel.y)
+							{
+								if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 0 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 0)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+								else if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 2 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 2)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+							}
+							else if (SPlayer1_Righttop.x > Player2_Leftbottom.x + Player2.vel.y)
+							{
+								Player2.pos.x = Player1.pos.x + 31 + SScale1.x;
+							}
+						}
+						else if (SPlayer1_Rightbottom.y > Player2_Lefttop.y)
+						{
+							if (SPlayer1_Leftbottom.x > Player2_Righttop.x || SPlayer1_Rightbottom.x < Player2_Lefttop.x + Player2.vel.y)
+							{
+								if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 0 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 0)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+								else if (mapchip[Player2_preLefttopmap.y][Player2_preLefttopmap.x] == 2 && mapchip[Player2_preLeftbottommap.y][Player2_preLeftbottommap.x] == 2)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+							}
+							else if (SPlayer1_Rightbottom.x < Player2_Lefttop.x + Player2.vel.y)
+							{
+								Player2.pos.x = Player1.pos.x + 31 + SScale1.x;
+							}
+						}
+
+					}
+					
+
 				}
 
 				///右移動の処理
@@ -462,9 +513,56 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					Vector2int Player2_preRightbottommap = { int(Player2_Rightbottom.x + Player2.vel.x) / 32,int(Player2_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
 
-					if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 0 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 0)
+					if (SPlayer1_Lefttop.y > Player2_Rightbottom.y || SPlayer1_Leftbottom.y < Player2_Righttop.y)
 					{
-						Player2.pos.x += Player2.vel.x;
+						if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 0 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 0)
+						{
+							Player2.pos.x += Player2.vel.x;
+						}
+						else if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 2 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 2)
+						{
+							Player2.pos.x += Player2.vel.x;
+						}
+					}
+					else if (SPlayer1_Lefttop.y < Player2_Rightbottom.y || SPlayer1_Leftbottom.y > Player2_Righttop.y)
+					{
+						if (SPlayer1_Lefttop.y < Player2_Rightbottom.y)
+						{
+							if (SPlayer1_Righttop.x < Player2_Leftbottom.x || SPlayer1_Lefttop.x > Player2_Rightbottom.x + Player2.vel.y)
+							{
+								if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 0 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 0)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+								else if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 2 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 2)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+							}
+							else if (SPlayer1_Lefttop.x < Player2_Rightbottom.x + Player2.vel.y)
+							{
+								Player2.pos.x = Player1.pos.x - 35 - SScale1.x;
+							}
+						}
+						else if (SPlayer1_Leftbottom.y > Player2_Righttop.y)
+						{
+							if (SPlayer1_Rightbottom.x > Player2_Lefttop.x || SPlayer1_Leftbottom.x < Player2_Righttop.x + Player2.vel.y)
+							{
+								if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 0 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 0)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+								else if (mapchip[Player2_preRighttopmap.y][Player2_preRighttopmap.x] == 2 && mapchip[Player2_preRightbottommap.y][Player2_preRightbottommap.x] == 2)
+								{
+									Player2.pos.x += Player2.vel.x;
+								}
+							}
+							else if (SPlayer1_Leftbottom.x < Player2_Righttop.x + Player2.vel.y)
+							{
+								Player2.pos.x = Player1.pos.x + 35 + SScale1.x;
+							}
+						}
+
 					}
 				}
 
@@ -504,14 +602,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					Player2.vel.y = -15;
 				}
-				
+
 				///
 				///移動処理ここまで↑↑↑
 				/// 
 
-				
+
 			}
-			
+
 
 
 
@@ -622,6 +720,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		case Stage1:
 
+
+			QUAD(Player1_Lefttop, Player1_Righttop, Player1_Leftbottom, Player1_Rightbottom, red);
+
+			QUAD(Player2_Lefttop, Player2_Righttop, Player2_Leftbottom, Player2_Rightbottom, blue);
+
+			QUAD(SPlayer1_Lefttop, SPlayer1_Righttop, SPlayer1_Leftbottom, SPlayer1_Rightbottom, subred);
+
+			//-----上段のステージの描画-----
+
 			for (int i = 0; i < 12; i++)
 			{
 				for (int j = 0; j < 52; j++)
@@ -632,12 +739,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 
 					///test
-					/*
+
 					if (mapchip[i][j] == 2)
 					{
-						int scaletimer = 0;
-
-						scaletimer++;
+						scaletimer += 1;
 
 						if (scaletimer == 200)
 						{
@@ -646,25 +751,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						if (scaletimer < 50)
 						{
-							
+							Novice::DrawSpriteRect(j * 32, i * 32, 0, 0, 32, 32, changeblock, 0.25f, 1, 0.0f, 0xFFFFFFFF);
 						}
 						else if (scaletimer < 100)
 						{
-							
+							Novice::DrawSpriteRect(j * 32, i * 32, 32, 0, 32, 32, changeblock, 0.25f, 1, 0.0f, 0xFFFFFFFF);
 						}
 						else if (scaletimer < 150)
 						{
-							
+							Novice::DrawSpriteRect(j * 32, i * 32, 64, 0, 32, 32, changeblock, 0.25f, 1, 0.0f, 0xFFFFFFFF);
 						}
 						else if (scaletimer < 200)
 						{
-							
+							Novice::DrawSpriteRect(j * 32, i * 32, 96, 0, 32, 32, changeblock, 0.25f, 1, 0.0f, 0xFFFFFFFF);
 						}
+
 					}
 
 				}
 			}
-			*/
+
+			//-----下段のステージの描画-----
+
 			for (int i = 12; i < 23; i++)
 			{
 				for (int j = 0; j < 52; j++)
@@ -677,35 +785,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			/*for (int i = 0; i < 12; i++)
-			{
-				for (int j = 0; j < 52; j++)
-				{
-					if (i == Player1_Lefttopmap.y && j == Player1_Lefttopmap.x)	
-					{
-						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
-					}
-					if (i == Player1_Righttopmap.y && j == Player1_Righttopmap.x)
-					{
-						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
-					}
-					if (i == Player1_Leftbottommap.y && j == Player1_Leftbottommap.x)
-					{
-						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
-					}
-					if (i == Player1_Rightbottommap.y && j == Player1_Rightbottommap.x)
-					{
-						Novice::DrawBox(32 * j, 32 * i, 32, 32, 0.0f, BLUE, kFillModeWireFrame);
-					}
-				}
-			}
-		    */
 
-			QUAD(Player1_Lefttop, Player1_Righttop, Player1_Leftbottom, Player1_Rightbottom, red);
 
-			QUAD(Player2_Lefttop, Player2_Righttop, Player2_Leftbottom, Player2_Rightbottom, blue);
-
-			QUAD(SPlayer1_Lefttop, SPlayer1_Righttop, SPlayer1_Leftbottom, SPlayer1_Rightbottom, subred);
 
 			if (Player1.flag == true)
 			{
@@ -715,6 +796,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				Novice::ScreenPrintf(100, 100, "Player2.vel.x = %f", Player2.vel.x);
 			}
+
+			Novice::ScreenPrintf(100, 200, "%f", Player1.pos.x);
+
+			Novice::ScreenPrintf(100, 300, "%f", Player1_Rightbottom.x);
 
 			break;
 
