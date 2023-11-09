@@ -334,7 +334,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					{
 						Player1.pos.x += Player1.vel.x;
 					}
-					if(mapchip[Player1_preLefttopmap.y][Player1_preLefttopmap.x] == 0 && mapchip[Player1_preLeftbottommap.y][Player1_preLeftbottommap.x] == 0)
+					if (mapchip[Player1_preLefttopmap.y][Player1_preLefttopmap.x] == 2 && mapchip[Player1_preLeftbottommap.y][Player1_preLeftbottommap.x] == 2)
+					{
+						Player1.pos.x += Player1.vel.x;
+					}
 				}
 
 				///右移動の処理
@@ -348,6 +351,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Vector2int Player1_preRightbottommap = { int(Player1_Rightbottom.x + Player1.vel.x) / 32,int(Player1_Rightbottom.y) / 32 };///プレイヤーの1マス右のマップチップ(右下)
 
 					if (mapchip[Player1_preRighttopmap.y][Player1_preRighttopmap.x] == 0 && mapchip[Player1_preRightbottommap.y][Player1_preRightbottommap.x] == 0)
+					{
+						Player1.pos.x += Player1.vel.x;
+					}
+					if (mapchip[Player1_preRighttopmap.y][Player1_preRighttopmap.x] == 2 && mapchip[Player1_preRightbottommap.y][Player1_preRightbottommap.x] == 2)
 					{
 						Player1.pos.x += Player1.vel.x;
 					}
@@ -625,7 +632,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 
 					///test
-
+					/*
 					if (mapchip[i][j] == 2)
 					{
 						int scaletimer = 0;
@@ -639,7 +646,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						if (scaletimer < 50)
 						{
-							Novice::drawsprite
+							
 						}
 						else if (scaletimer < 100)
 						{
@@ -657,7 +664,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				}
 			}
-
+			*/
 			for (int i = 12; i < 23; i++)
 			{
 				for (int j = 0; j < 52; j++)
